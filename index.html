@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ananda Farhad Habibie — Data Analyst / AI Agent Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0f14;
+  --bg2:#0f191f;
+  --surface:#131d24;
+  --surface2:#1a2832;
+  --border:#1e333e;
+  --border2:#234252;
+  --text:#e6f0f2;
+  --muted:#7a8d98;
+  --muted2:#5a6d7a;
+  --accent:#2dd4bf;
+  --accent2:#06b6d4;
+  --accent-dim:rgba(45,212,191,.12);
+  --amber:#f59e0b;
+  --radius:14px;
+  --radius-sm:10px;
+  --max:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* top bar */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,15,20,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center}
+.nav-inner{max-width:var(--max);width:100%;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;letter-spacing:.04em}
+.logo span{color:var(--accent)}
+.nav-links{display:flex;gap:28px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;background:var(--accent);color:#04201c;padding:8px 16px;border-radius:8px;font-weight:600}
+.nav-cta:hover{filter:brightness(1.08)}
+
+/* hero */
+.hero{padding:96px 24px 48px;max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:start}
+.kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.kicker::before{content:"";width:28px;height:1px;background:var(--accent);display:block}
+h1{font-size:42px;line-height:.95;letter-spacing:-.03em;font-weight:800}
+h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{color:var(--muted);font-size:15px;line-height:1.7;margin-top:16px;max-width:520px}
+.hero-sub strong{color:var(--text);font-weight:600}
+.hero-actions{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.02em;padding:11px 18px;border-radius:10px;border:1px solid var(--border);font-weight:600;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--accent);color:#04201c;border-color:var(--accent)}
+.btn-ghost{background:transparent;color:var(--text)}
+.btn-ghost:hover{border-color:var(--border2);background:var(--surface)}
+.meta-row{margin-top:22px;display:flex;gap:18px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em}
+.meta-row b{color:var(--text);font-weight:600}
+
+/* terminal card */
+.term{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.term-bar{height:38px;display:flex;align-items:center;gap:7px;padding:0 14px;border-bottom:1px solid var(--border);background:rgba(255,255,255,.02)}
+.dot{width:10px;height:10px;border-radius:999px}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.term-bar span{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--muted2);text-transform:uppercase}
+.term-body{padding:16px 18px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.8;color:#c8d6de}
+.term-body .c{color:var(--muted2)} .term-body .k{color:var(--accent)} .term-body .v{color:#7dd3fc} .term-body .s{color:#fbbf24}
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
+.stat{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:12px}
+.stat b{font-family:'JetBrains Mono',monospace;font-size:18px;display:block}
+.stat span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+
+/* sections */
+section{max-width:var(--max);margin:0 auto;padding:28px 24px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
+.sec-num{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--accent)}
+.sec-title{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.sec-desc{color:var(--muted);font-size:13.5px;max-width:620px}
+.divider{height:1px;background:var(--border);margin:8px 0 22px}
+
+/* projects */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;padding:7px 12px;border-radius:999px;border:1px solid var(--border);color:var(--muted);cursor:pointer;background:transparent}
+.chip.active{background:var(--accent-dim);border-color:rgba(45,212,191,.28);color:var(--accent)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;position:relative;overflow:hidden;transition:.15s}
+.card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
+.tag.teal{color:var(--accent);border-color:rgba(45,212,191,.3);background:var(--accent-dim)}
+.card h3{font-size:15px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.card p{color:var(--muted);font-size:13px;line-height:1.6;margin-top:6px}
+.card-meta{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.pill{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.06em;padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:#9fb0bb}
+.card-link{margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--accent);display:inline-flex;gap:6px;align-items:center}
+.card-link:hover{gap:8px}
+
+/* stack + pipeline */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+.panel h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;color:var(--muted);margin-bottom:12px}
+.stack{display:flex;flex-wrap:wrap;gap:8px}
+.stack span{font-family:'JetBrains Mono',monospace;font-size:11px;padding:7px 10px;border-radius:999px;background:#0e1a20;border:1px solid var(--border);color:#b8c9d2}
+.pipeline{font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.9;color:#c8d6de}
+.pipeline b{color:var(--accent)}
+.pipe-step{display:flex;gap:10px;align-items:center;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.06)}
+.pipe-step:last-child{border:0}
+.pipe-dot{width:7px;height:7px;border-radius:999px;background:var(--accent);flex:none;box-shadow:0 0 0 6px var(--accent-dim)}
+
+/* contact */
+.contact{background:linear-gradient(180deg, var(--surface), #0e1a20);border:1px solid var(--border);border-radius:var(--radius);padding:22px;display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center}
+.contact h3{font-size:22px;letter-spacing:-.02em}
+.contact p{color:var(--muted);font-size:13.5px;margin-top:6px}
+.contact-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.contact-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:14px}
+.contact-card .mono{font-size:11px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.contact-card a{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);word-break:break-all}
+
+footer{max-width:var(--max);margin:24px auto 40px;padding:0 24px;display:flex;justify-content:space-between;align-items:center;color:var(--muted2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;border-top:1px solid var(--border);padding-top:18px}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:22px}
+  h1{font-size:34px}
+  .grid,.two,.contact{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo">AFH<span>_</span></div>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-cta" href="#contact">Available for work →</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="kicker">Data Analyst · AI Agent Builder · Jakarta, ID</div>
+    <h1>Ananda<br>Farhad<br><em>Habibie</em></h1>
+    <p class="hero-sub">I turn messy data into <strong>decision-ready intelligence</strong>. Builder of agent pipelines — Hermes + OpenCode + 9Router — for reproducible market research, evidence-backed reporting, and automated insight delivery.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">View projects ↓</a>
+      <a class="btn btn-ghost mono" href="#stack">pipeline.sh —cat</a>
+    </div>
+    <div class="meta-row">
+      <span><b>17</b> public repos</span>
+      <span><b>4</b> market reports</span>
+      <span><b>100%</b> reproducible</span>
+    </div>
+  </div>
+
+  <div class="term">
+    <div class="term-bar"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i><span>~/portfolio — zsh</span></div>
+    <div class="term-body">
+      <div class="c"># pipeline that actually ships</div>
+      <div><span class="k">hermes</span> <span class="v">collect</span> --brief briefs/<span class="s">market.md</span></div>
+      <div><span class="k">opencode</span> run <span class="s">"extract → normalize → evidence"</span></div>
+      <div><span class="k">hermes</span> <span class="v">verify</span> --strict <span class="c"># no unsupported claims</span></div>
+      <div style="margin-top:8px;color:var(--accent)">✔ 847 evidence records · 0 gaps · report ready</div>
+      <div class="stats">
+        <div class="stat"><b>Python</b><span>Analysis</span></div>
+        <div class="stat"><b>SQL</b><span>Modeling</span></div>
+        <div class="stat"><b>Power BI</b><span>Viz</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="projects">
+  <div class="sec-head">
+    <span class="sec-num">01 —</span>
+    <span class="sec-title">Selected work</span>
+    <span style="margin-left:auto" class="mono sec-desc">Evidence-backed. Reproducible by script.</span>
+  </div>
+  <div class="divider"></div>
+  <div class="filters">
+    <button class="chip active" data-filter="all">All</button>
+    <button class="chip" data-filter="market">Market Intelligence</button>
+    <button class="chip" data-filter="esports">Esports Analytics</button>
+    <button class="chip" data-filter="agents">Agent Systems</button>
+    <button class="chip" data-filter="repo">Open Source</button>
+    <button class="chip" data-filter="writing">Writing</button>
+  </div>
+  <div class="grid" id="grid">
+    <article class="card" data-cat="repo">
+      <div class="card-top"><span class="tag teal">Fintech / E2Pay</span><span class="tag">Python</span></div>
+      <h3>Interchange-Fee</h3>
+      <p>Settlement matching engine: loads interchange transactions from txt/csv, reconciles and matches them to settlement records.</p>
+      <div class="card-meta"><span class="pill">reconciliation</span><span class="pill">payments</span><span class="pill">csv/txt</span></div>
+      <a class="card-link" href="https://github.com/FarhadHabibie/Interchange-Fee" target="_blank" rel="noopener">View repo →</a>
+    </article>
+    <article class="card" data-cat="repo">
+      <div class="card-top"><span class="tag teal">Automation</span><span class="tag">Python</span></div>
+      <h3>TxtToExcel</h3>
+      <p>Parses fixed-format table dumps from .txt files and compiles them into a single clean Excel workbook.</p>
+      <div class="card-meta"><span class="pill">etl</span><span class="pill">excel</span><span class="pill">parser</span></div>
+      <a class="card-link" href="https://github.com/FarhadHabibie/TxtToExcel" target="_blank" rel="noopener">View repo →</a>
+    </article>
+    <article class="card" data-cat="repo">
+      <div class="card-top"><span class="tag teal">BI</span><span class="tag">Power BI</span></div>
+      <h3>Insurance PBI — Insight Dashboard</h3>
+      <p>Power BI model over insurance policy + previous-application data; DAX measures surfacing risk and portfolio insights.</p>
+      <div class="card-meta"><span class="pill">dax</span><span class="pill">insurance</span><span class="pill">dashboard</span></div>
+      <a class="card-link" href="https://github.com/FarhadHabibie/Insrance_PBI" target="_blank" rel="noopener">View repo →</a>
+    </article>
+    <article class="card" data-cat="repo">
+      <div class="card-top"><span class="tag teal">Utility</span><span class="tag">Python</span></div>
+      <h3>UniversalEncoderDecoder</h3>
+      <p>Sets of encoders/decoders for common formats in one CLI tool — quick data munging without leaving the terminal.</p>
+      <div class="card-meta"><span class="pill">cli</span><span class="pill">tooling</span></div>
+      <a class="card-link" href="https://github.com/FarhadHabibie/UniversalEncoderDecoder" target="_blank" rel="noopener">View repo →</a>
+    </article>
+    <article class="card" data-cat="repo">
+      <div class="card-top"><span class="tag teal">Scraping</span><span class="tag">Python</span></div>
+      <h3>FHCI 2024 Scraper</h3>
+      <p>Event data scraper for FHCI 2024 — collection to structured output for follow-up analysis.</p>
+      <div class="card-meta"><span class="pill">scraping</span><span class="pill">events</span></div>
+      <a class="card-link" href="https://github.com/FarhadHabibie/ScrapingFHCI2024" target="_blank" rel="noopener">View repo →</a>
+    </article>
+    <article class="card" data-cat="market">
+      <div class="card-top"><span class="tag teal">Market Intelligence</span><span class="tag">2026·08</span></div>
+      <h3>Indonesia EV Motorcycle Market — Evidence Report</h3>
+      <p>Full pipeline: brief → Camofox collect → raw → normalized → competitor matrix & price architecture. Final deliverable in reports/final.</p>
+      <div class="card-meta"><span class="pill">pricing</span><span class="pill">competitor matrix</span><span class="pill">evidence pipeline</span></div>
+      <a class="card-link" href="https://blog.stackademic.com/how-to-build-a-market-intelligence-engine-from-zero-wsl-hermes-camofox-opencode-fa252ab5d902" target="_blank" rel="noopener">Read write-up →</a>
+    </article>
+    <article class="card" data-cat="market">
+      <div class="card-top"><span class="tag teal">Market Intelligence</span><span class="tag">2026·08</span></div>
+      <h3>Indonesia Footwear Market Intelligence</h3>
+      <p>Category sizing, channel breakdown, capability mapping. Reusable collectors + normalized datasets under data/processed.</p>
+      <div class="card-meta"><span class="pill">category sizing</span><span class="pill">DBeaver / SQL</span><span class="pill">Power BI</span></div>
+      <a class="card-link" href="https://medium.com/@awesomefarhad6" target="_blank" rel="noopener">Read write-up →</a>
+    </article>
+    <article class="card" data-cat="market">
+      <div class="card-top"><span class="tag teal">Market Intelligence</span><span class="tag">2026·08</span></div>
+      <h3>Payment Solutions — E2Pay Deep Dive</h3>
+      <p>Platform profile, complementarity analysis, processed evidence set for fintech positioning.</p>
+      <div class="card-meta"><span class="pill">fintech</span><span class="pill">platform profile</span><span class="pill">evidence</span></div>
+      <a class="card-link" href="https://medium.com/@awesomefarhad6" target="_blank" rel="noopener">Read write-up →</a>
+    </article>
+    <article class="card" data-cat="agents">
+      <div class="card-top"><span class="tag teal">Agent Systems</span><span class="tag">Hermes</span></div>
+      <h3>Agent Platform Landscape 2026</h3>
+      <p>Comparative scan of autonomous coding agents, orchestration patterns, and provider routing (9Router). Framework for build-vs-buy decisions.</p>
+      <div class="card-meta"><span class="pill">Hermes</span><span class="pill">OpenCode</span><span class="pill">9Router</span></div>
+      <a class="card-link" href="https://medium.com/@awesomefarhad6" target="_blank" rel="noopener">Read write-up →</a>
+    </article>
+    <article class="card" data-cat="esports">
+      <div class="card-top"><span class="tag" style="border-color:#3b3a5a;color:#a5a3ff;background:rgba(120,120,255,.1)">Esports Analytics</span><span class="tag">KWC 2026</span></div>
+      <h3>KWC 2026 — Honor of Kings World Cup Insights</h3>
+      <p>Group stage + playoffs summaries, team/player signals, OpenSeries ID insights. Data → narrative for broadcast & decision.</p>
+      <div class="card-meta"><span class="pill">HoK</span><span class="pill">tournament analytics</span><span class="pill">storytelling</span></div>
+      <a class="card-link" href="https://medium.com/@awesomefarhad6" target="_blank" rel="noopener">View insights →</a>
+    </article>
+    <article class="card" data-cat="agents">
+      <div class="card-top"><span class="tag teal">Agent Systems</span><span class="tag">Template</span></div>
+      <h3>Hermes ECC Adapter — Portable Template</h3>
+      <p>One-zip setup: install.sh → verify.sh → ECC skills + 9Router bootstrap. Moves across machines, same flow everywhere.</p>
+      <div class="card-meta"><span class="pill">hermes-ecc-adapter</span><span class="pill">portable</span><span class="pill">opencode</span></div>
+      <a class="card-link" href="https://github.com/FarhadHabibie" target="_blank" rel="noopener">View repo →</a>
+    </article>
+
+    <article class="card" data-cat="writing">
+      <div class="card-top"><span class="tag teal">Writing · Stackademic</span><span class="tag">2026·08</span></div>
+      <h3>How to Build a Market Intelligence Engine from Zero</h3>
+      <p>WSL + Hermes + Camofox + OpenCode: complete tested pipeline briefs → evidence → analysis → reports → executive decks, with exact commands and pitfalls. Companion to the Indonesia EV run (105 sources → 77 records → 18-section report).</p>
+      <div class="card-meta"><span class="pill">ai-agent</span><span class="pill">hermes-agent</span><span class="pill">opencode</span></div>
+      <a class="card-link" href="https://blog.stackademic.com/how-to-build-a-market-intelligence-engine-from-zero-wsl-hermes-camofox-opencode-fa252ab5d902" target="_blank" rel="noopener">Read on Stackademic →</a>
+    </article>
+
+    <article class="card" data-cat="writing">
+      <div class="card-top"><span class="tag teal">Writing · Stackademic</span><span class="tag">2026·08</span></div>
+      <h3>Orca IDE + OpenCode + 9Router: A Powerful AI Coding Setup with WSL</h3>
+      <p>Flexible AI coding environment: Orca IDE on Windows, OpenCode + 9Router inside WSL, plus an OpenCode plugin to switch Claude/GPT/Gemini/Qwen without rebuilding the environment.</p>
+      <div class="card-meta"><span class="pill">ai-agent</span><span class="pill">llm</span><span class="pill">wsl</span></div>
+      <a class="card-link" href="https://blog.stackademic.com/orca-ide-opencode-9router-a-powerful-ai-coding-setup-with-wsl-07d8e93214d0" target="_blank" rel="noopener">Read on Stackademic →</a>
+    </article>
+
+    <article class="card" data-cat="writing">
+      <div class="card-top"><span class="tag teal">Writing</span><span class="tag">2026·05</span></div>
+      <h3>Building a Modern Real-Time Data Warehouse</h3>
+      <p>Complete DE pipeline: PostgreSQL CDC via Debezium + Redpanda streaming into ClickHouse, orchestrated by Airflow — full docker-compose infra to automated ingestion.</p>
+      <div class="card-meta"><span class="pill">clickhouse</span><span class="pill">airflow</span><span class="pill">cdc</span></div>
+      <a class="card-link" href="https://medium.com/@awesomefarhad6/building-a-modern-real-time-data-warehouse-a-complete-implementation-guide-89fbf8c02641" target="_blank" rel="noopener">Read on Medium →</a>
+    </article>
+
+    <article class="card" data-cat="writing">
+      <div class="card-top"><span class="tag teal">Writing</span><span class="tag">2025·09</span></div>
+      <h3>Universal Encoder/Decoder with Cryptography in Python</h3>
+      <p>Tkinter + ttkbootstrap GUI: Base16–Base85, URL/HTML encode-decode, MD5/SHA hashing, AES symmetric + RSA 2048-bit with .pem key management.</p>
+      <div class="card-meta"><span class="pill">tkinter</span><span class="pill">cryptography</span><span class="pill">ttkbootstrap</span></div>
+      <a class="card-link" href="https://medium.com/@awesomefarhad6/building-a-universal-encoder-decoder-with-cryptography-in-python-tkinter-ttkbootstrap-c49af2e277a6" target="_blank" rel="noopener">Read on Medium →</a>
+    </article>
+
+    <article class="card" data-cat="writing">
+      <div class="card-top"><span class="tag teal">Writing</span><span class="tag">2025·09</span></div>
+      <h3>Tkinter App: Transform Transaction Reports (.txt) into Excel</h3>
+      <p>Desktop ETL: parse fixed-format txt transaction dumps into clean Excel exports, with ThreadPoolExecutor so the UI never freezes.</p>
+      <div class="card-meta"><span class="pill">etl</span><span class="pill">pandas</span><span class="pill">data-analysis</span></div>
+      <a class="card-link" href="https://medium.com/@awesomefarhad6/building-a-tkinter-ttkbootstrap-app-to-transform-transaction-reports-txt-files-into-excel-1533554e0fed" target="_blank" rel="noopener">Read on Medium →</a>
+    </article>
+
+    <article class="card" data-cat="writing">
+      <div class="card-top"><span class="tag teal">Writing · Stackademic</span><span class="tag">2024·04</span></div>
+      <h3>Building a Scalable Dockerized Application with Docker Compose v3.0</h3>
+      <p>Multi-service stack — MariaDB, phpMyAdmin, Python app, Metabase — defined declaratively and scaled with Docker Compose.</p>
+      <div class="card-meta"><span class="pill">docker</span><span class="pill">mysql</span><span class="pill">python</span></div>
+      <a class="card-link" href="https://blog.stackademic.com/building-a-scalable-dockerized-application-with-docker-compose-version-3-0-fae453d19881" target="_blank" rel="noopener">Read on Stackademic →</a>
+    </article>
+
+    <article class="card" data-cat="writing">
+      <div class="card-top"><span class="tag teal">Writing · Stackademic</span><span class="tag">2024·04</span></div>
+      <h3>Scraping Tokopaedi Data</h3>
+      <p>E-commerce product scraping with requests + BeautifulSoup + pandas: inspect-element workflow, structured output for market analysis.</p>
+      <div class="card-meta"><span class="pill">web-scraping</span><span class="pill">beautifulsoup</span><span class="pill">ecommerce</span></div>
+      <a class="card-link" href="https://blog.stackademic.com/scraping-tokopaedi-data-464078575f8f" target="_blank" rel="noopener">Read on Stackademic →</a>
+    </article>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="sec-head"><span class="sec-num">02 —</span><span class="sec-title">Stack & pipeline</span></div>
+  <div class="divider"></div>
+  <div class="two">
+    <div class="panel">
+      <h3>Stack</h3>
+      <div class="stack">
+        <span>Python</span><span>Pandas</span><span>SQL</span><span>ClickHouse</span><span>Airflow</span>
+        <span>Docker Compose</span><span>Power BI</span><span>DBeaver</span><span>Excel</span>
+        <span>Hermes Agent</span><span>OpenCode</span><span>9Router</span><span>Orca IDE</span><span>Camofox</span><span>Git</span>
+      </div>
+      <h3 style="margin-top:16px">Principles</h3>
+      <p style="color:var(--muted);font-size:13px;line-height:1.7">Every .md is generated by a script (stdlib). Draft → final promoted byte-identical (cp + cmp). No hand-written numbers. Every FACT cites a record ID.</p>
+    </div>
+    <div class="panel">
+      <h3>Pipeline — briefs → deliver</h3>
+      <div class="pipeline">
+        <div class="pipe-step"><span class="pipe-dot"></span><span><b>briefs/</b> — research questions & intake</span></div>
+        <div class="pipe-step"><span class="pipe-dot"></span><span><b>data/sources/</b> — Camofox, immutable evidence</span></div>
+        <div class="pipe-step"><span class="pipe-dot"></span><span><b>data/raw → processed/</b> — OpenCode extract + normalize</span></div>
+        <div class="pipe-step"><span class="pipe-dot"></span><span><b>analysis/</b> — numbered scripts 01..11_*.py</span></div>
+        <div class="pipe-step"><span class="pipe-dot"></span><span><b>reports/drafts → final/</b> — Hermes verify, byte-identical promote</span></div>
+        <div class="pipe-step"><span class="pipe-dot"></span><span><b>reports/presentations/</b> — executive .pptx decks</span></div>
+      </div>
+      <h3 style="margin-top:16px">Also running in prod — data platform</h3>
+      <div class="pipeline">
+        <div class="pipe-step"><span class="pipe-dot"></span><span><b>CDC:</b> Postgres wal_level=logical → Debezium → Redpanda</span></div>
+        <div class="pipe-step"><span class="pipe-dot"></span><span><b>Serve:</b> ClickHouse analytics · Airflow orchestration · Metabase BI</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact">
+    <div>
+      <div class="mono" style="font-size:11px;letter-spacing:.12em;color:var(--accent)">03 — CONTACT</div>
+      <h3>Let's build something<br>that ships.</h3>
+      <p>Market intelligence, data pipelines, or agent systems — I work in reproducible scripts, not slideware.</p>
+      <div class="contact-actions">
+        <a class="btn btn-primary" href="mailto:habibiefarhad@gmail.com">Email me</a>
+        <a class="btn btn-ghost" href="https://github.com/FarhadHabibie" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/farhad-habibie/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-ghost" href="https://medium.com/@awesomefarhad6" target="_blank" rel="noopener">Medium</a>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="mono">Email</div>
+      <a href="mailto:habibiefarhad@gmail.com">habibiefarhad@gmail.com</a>
+      <div class="mono" style="margin-top:12px">Location</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px">Jakarta, Indonesia · Remote</div>
+      <div class="mono" style="margin-top:12px">Availability</div>
+      <div style="font-size:13px;color:var(--muted)">Open to freelance & full-time — data & agent roles.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 ANANDA FARHAD HABIBIE — BUILT WITH HERMES · OPENCODE · 9ROUTER</span>
+  <span class="mono" style="color:var(--muted)">portfolio / v1 · single-folder</span>
+</footer>
+
+<script>
+document.querySelectorAll('.chip').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+    c.classList.add('active');
+    const f=c.dataset.filter;
+    document.querySelectorAll('.card').forEach(card=>{
+      card.style.display = (f==='all' || card.dataset.cat===f) ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>
